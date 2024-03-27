@@ -26,6 +26,7 @@ public:
   friend ostream &operator<<(ostream &out, Array &a);
   void append(int x);
   void insert(int index, int x);
+  void extend(Array a);
   void del(int index);
   bool is_sorted();
   void sort(string method="merge_sort");
@@ -68,6 +69,8 @@ int main() {
   arr_1.rotate();
   cout << arr_1 << endl;
   arr_1.arrange(3);
+  cout << arr_1 << endl;
+  arr_1.extend(arr);
   cout << arr_1 << endl;
   return 0;
 }
@@ -144,6 +147,15 @@ void Array::insert(int index, int x) {
     A[index] = x;
     length++;
   }
+}
+
+void Array::extend(Array a) {
+  int new_length = length + a.length;
+  if (size < new_length)
+    set_size(new_length + 1);
+  for (int i=length; i<new_length; i++)
+    A[i] = a.A[i-length];
+  length = new_length;
 }
 
 void Array::del(int index) {
